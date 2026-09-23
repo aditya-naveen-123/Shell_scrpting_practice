@@ -16,7 +16,7 @@ VALIDATE() {
     fi
 }
 
-for package in $@ {
+for package in $@
     do
         dnf list installed $package
         if [ $? -eq 0 ]; then
@@ -29,4 +29,3 @@ for package in $@ {
         fi
        
     done
-}
