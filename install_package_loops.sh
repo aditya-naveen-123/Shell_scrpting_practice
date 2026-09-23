@@ -21,7 +21,7 @@ for package in $@
         dnf list installed $package
         if [ $? -eq 0 ]; then
             echo "Required $package is already installed skipping" | tee -a $LOGS_FILE
-            exit 1
+            #exit 1
         else 
             echo "Installing $package....." | tee -a $LOGS_FILE
             dnf install $package -y &>>$LOGS_FILE
