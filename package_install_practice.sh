@@ -18,7 +18,7 @@ VALIDATE() {
 
 dnf list installed mysql &>>$LOGS_FILE
 
-if [ $? -ne 0 ]; then
+if [ $? -eq 0 ]; then
     echo "Required package mysql is already installed skipping"
     exit 1
 else 
