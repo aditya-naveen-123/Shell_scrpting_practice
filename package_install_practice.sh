@@ -23,7 +23,7 @@ if [ $? -eq 0 ]; then
     exit 1
 else 
     echo "Installing My SQL....."
-    dnf install mysql &>>$LOGS_FILE
+    dnf install mysql -y &>>$LOGS_FILE
 
 fi
 VALIDATE mysql $?
