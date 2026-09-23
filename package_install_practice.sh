@@ -3,7 +3,7 @@ LOGS_FILE_NAME=$0
 USER_ID=$(id -u)
 LOGS_FILE="/var/log/shell-script/$LOGS_FILE_NAME.log"
 
-if [ USER_ID -ne 0 ]; then 
+if [ $USER_ID -ne 0 ]; then 
     echo "USer do not have permissions to run this script: Please run with sudo access"
     exit 1
 fi
