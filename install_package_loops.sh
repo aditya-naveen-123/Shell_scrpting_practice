@@ -2,7 +2,7 @@
 LOGS_FILE_NAME=$0
 USER_ID=$(id -u)
 LOGS_FILE="/var/log/shell-script/$LOGS_FILE_NAME.log"
-TIMESTAMP=$(date +%Y-%m-%d %H:%M:%S)
+TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
 
 if [ $USER_ID -ne 0 ]; then 
     echo "$TIMESTAMP [INFO] : USer do not have permissions to run this script: Please run with sudo access" | tee -a $LOGS_FILE
