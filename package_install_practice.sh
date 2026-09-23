@@ -9,7 +9,7 @@ if [ $USER_ID -ne 0 ]; then
 fi
 
 VALIDATE() {
-    if [ $2 -ne 0]; then
+    if [ $2 -ne 0 ]; then
         echo "Installing $1 is failed"
     else
         echo "Installing the package $1 is success"
@@ -23,7 +23,7 @@ if [ $? -eq 0 ]; then
     exit 1
 else 
     echo "Installing My SQL....."
-    dnf install mysqld &>>$LOGS_FILE
+    dnf install mysql &>>$LOGS_FILE
 
 fi
-VALIDATE mysqld $?
+VALIDATE mysql $?
