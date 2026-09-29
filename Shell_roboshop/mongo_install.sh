@@ -38,3 +38,8 @@ VALIDATE $? "Adding Mongo repo"
 
 dnf install mongodb-org -y  &>> $LOGS_FILE
 VALIDATE $? "Installing Mongo DB"
+
+systemctl enable --now mongod &>> $LOGS_FILE
+VALIDATE $? "Starting and enabling MongoDB"
+
+
