@@ -13,7 +13,7 @@ do
 --count 1 \
  --instance-type t3.micro \
  --security-groups "roboshop-common" "roboshop-$instance" \
- --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value="roboshop-$instance"}]' \
+ --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value="roboshop-'$instance'"}]' \
  --query 'Instances[0].InstanceId' \
  --output text 
 
@@ -43,12 +43,12 @@ fi
                 {
                 "Action": "UPSERT",
                 "ResourceRecordSet": {
-                    "Name": "$R53RECORD",
+                    "Name": "'$R53RECORD'",
                     "Type": "A",
                     "TTL": 1,
                     "ResourceRecords": [
                     {
-                        "Value": "$IP"
+                        "Value": "'$IP'"
                     }
                     ]
                 }
