@@ -87,7 +87,7 @@ do
         if [ $ACTION == "None" ]; then
             echo "$instance is already destoryed nothing to do"
         else
-            aws ec2 terminate-instances --instance-ids $INSTANCE_NAME
+            aws ec2 terminate-instances --instance-ids $INSTANCEID
             echo "Terminating.....; $instance"
         fi
     fi
