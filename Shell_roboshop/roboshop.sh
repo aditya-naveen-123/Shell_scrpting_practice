@@ -20,11 +20,17 @@ do
     )
 echo "Instance Id is : $INSTANCEID"
 
-if [ $instance== "frontend" ]; then
-    IP=$(aws ec2 describe-instances \ --instance-ids $INSTANCEID \ --query 'Reservations[*].Instances[*].PublicIpAddress' \ --output text ) 
+if [ $instance == "frontend" ]; then
+    IP=$(aws ec2 describe-instances 
+     --instance-ids $INSTANCEID \ 
+     --query 'Reservations[*].Instances[*].PublicIpAddress' \ 
+     --output text ) 
     R53RECORD="$DOMAIN_NAME"
 else
-    IP=$(aws ec2 describe-instances \ --instance-ids $INSTANCEID \ --query 'Reservations[*].Instances[*].PrivateIpAddress' \ --output text ) 
+    IP=$(aws ec2 describe-instances 
+     --instance-ids $INSTANCEID \ 
+     --query 'Reservations[*].Instances[*].PrivateIpAddress' \ 
+     --output text ) 
     R53RECORD="$instance.$DOMAIN_NAME"
 fi
 
