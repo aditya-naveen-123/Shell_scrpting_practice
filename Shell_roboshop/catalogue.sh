@@ -84,7 +84,7 @@ VALIDATE $? "Installing mongodb client"
 
 INDEX=$(mongosh --host mongodb.adityabuilds.fun --eval 'db.getMongo().getDBNames().indexOf("catalogue")')
 if [ $INDEX -lt 0 ]; then
-    mongosh --host MONGODB-SERVER-IPADDRESS </app/db/master-data.js &>>$LOGS_FILE
+    mongosh --host mongodb.adityabuilds.fun </app/db/master-data.js &>>$LOGS_FILE
 else
     echo -e "$Y [INFO] $N products already loaded"
 fi
