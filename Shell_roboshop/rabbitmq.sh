@@ -34,7 +34,7 @@ VALIDATE() {
 }
 
 cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
-VALIDATE $? "Cpoying mongo repo"
+VALIDATE $? "Cpoying rabbitmq repo"
 
 dnf install rabbitmq-server -y &>>$LOGS_FILE
 VALIDATE $? "Installing Rabbit MQ server"
