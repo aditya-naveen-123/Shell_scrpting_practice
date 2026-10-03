@@ -17,7 +17,7 @@ fi
 
 ACTION=$1
 shift
-if [ $ACTION != "create" ] && [ $ACTION == "destroy" ]; then
+if [ "$ACTION" != "create" ] && [ "$ACTION" == "destroy" ]; then
     echo -e "$R [ERROR]  First argument should always be either <create> or <destroy> $N"
     echo -e "$Y [INFO] - USAGE : $0 [create/destrroy] [instance1] [instance2] etc.. $N"
     exit 1
