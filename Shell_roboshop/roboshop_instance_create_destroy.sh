@@ -11,14 +11,16 @@ N="\e[0m"
 
 if [ $# -lt 2 ]; then
     echo -e "[ERROR] $R This script needs atleast 2 args to run $N"
-    echo -e "$Y [INFO] - USAGE : $0 [create/destrroy] [instance1] [instance2] etc.. $N"
+    echo -e "$Y [INFO] - USAGE : $0 [create/delete] [instance1] [instance2] etc.. $N"
     exit 1
 fi
 
 ACTION=$1
 shift
-if [ "$ACTION" != "create" ] && [ "$ACTION" != "destroy" ]; then
-    echo -e "$R [ERROR]  First argument should always be either <create> or <destroy> $N"
+if [ "$ACTION" != "create" ] && [ "$ACTION" != "delete" ]; then
+    echo -e "$R [ERROR]  First argument should always be either <create> or <delete> $N"
     echo -e "$Y [INFO] - USAGE : $0 [create/destrroy] [instance1] [instance2] etc.. $N"
     exit 1
 fi
+
+if [ "$ACTION"]
