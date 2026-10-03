@@ -32,7 +32,7 @@ do
     INSTANCE_ID=$(get_instance_id $instance)
     echo "Before if $INSTANCE_ID"
     if [ $ACTION == "create" ]; then
-        if [ $INSTANCE_ID != "None" ]; then
+        if [ $INSTANCE_ID == "None" ]; then
             echo "Launching instance 'roboshop-$instance'"
             INSTANCE_ID=$(
             aws ec2 run-instances \
