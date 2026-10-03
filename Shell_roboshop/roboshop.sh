@@ -21,18 +21,18 @@ do
 echo "Instance Id is : $INSTANCEID"
 
 if [ $instance == "frontend" ]; then
-    IP=$(aws ec2 describe-instances --instance-ids $INSTANCEID \ 
-     --query 'Reservations[*].Instances[*].PublicIpAddress' \ 
-     --output text ) 
+    IP=$(
+aws ec2 describe-instances \ --instance-ids $INSTANCEID \ --query 'Reservations[*].Instances[*].PublicIpAddress' \ --output text 
+ ) 
     R53RECORD="$DOMAIN_NAME"
 else
-    IP=$(aws ec2 describe-instances --instance-ids $INSTANCEID \ 
-     --query 'Reservations[*].Instances[*].PrivateIpAddress' \ 
-     --output text ) 
+    IP=$(
+aws ec2 describe-instances \ --instance-ids $INSTANCEID \ --query 'Reservations[*].Instances[*].PrivateIpAddress' \ --output text 
+ ) 
     R53RECORD="$instance.$DOMAIN_NAME"
 fi
 
- aws route53 change-resource-record-sets \ --hosted-zone-id $ZONEIDs \ --change-batch '
+ aws route53 change-resource-record-sets \ --hosted-zone-id $ZONEID \ --change-batch '
  {
  "Comment": "Updating DNS record",
   "Changes": [
