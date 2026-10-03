@@ -36,9 +36,6 @@ VALIDATE() {
 dnf install mysql-server -y &>>$LOGS_FILE
 VALIDATE $? "Disablng Mysql"
 
-sed -i -e 's/127.0.0.1/0.0.0.0/g' -e '/protected-mode/c protected-mode no' /etc/redis/redis.conf
-VALIDATE $? "Allowing Remote connections to redis"
-
 systemctl enable mysqld &>>$LOGS_FILE
 systemctl start mysqld    &>>$LOGS_FILE
 VALIDATE $? "Enabling and starting mySQL"
