@@ -60,7 +60,7 @@ VALIDATE $? "Removing existing code if any"
 
 mkdir -p /app 
 
-curl -o /tmp/user.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip &>>$LOGS_FILE
+curl -o /tmp/cart.zip https://roboshop-artifacts.s3.amazonaws.com/cart-v3.zip &>>$LOGS_FILE
 VALIDATE $? "Downloading project into the temp"
 
 cd /app 
