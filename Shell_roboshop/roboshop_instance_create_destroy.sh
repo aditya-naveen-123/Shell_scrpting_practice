@@ -30,7 +30,6 @@ get_instance_id() {
 for instance in $@
 do
     INSTANCE_ID=$(get_instance_id $instance)
-    echo "Before if $INSTANCE_ID"
     if [ $ACTION == "create" ]; then
         if [ $INSTANCE_ID == "None" ]; then
             echo "Launching instance 'roboshop-$instance'"
@@ -44,6 +43,42 @@ do
             --query 'Instances[0].InstanceId' \
             --output text)
             echo "Launched new instance $INSTANCE_ID" 
+            if [ $instance == "frontend" ]; then
+                    IP=$(aws ec2 describe-instances --instance-ids $INSTANCEID \
+                        --query 'Reservations[*].Instances[*].PublicIpAddress' \
+                        --output text 
+                ) 
+                    R53RECORD="$DOMAIN_NAME"
+            else
+                    IP=$(aws ec2 describe-instances  --instance-ids $INSTANCEID \
+                    --query 'Reservations[*].Instances[*].PrivateIpAddress' \
+                    --output text 
+                ) 
+                    R53RECORD="$instance.$DOMAIN_NAME"
+            fi
+
+            aws route53 change-resource-record-sets \
+            --hosted-zone-id $ZONEID \
+            --change-batch '
+            {
+            "Comment": "Updating DNS record",
+            "Changes": [
+                            {
+                        "Action": "UPSERT",
+                        "ResourceRecordSet": {
+                            "Name": "'$R53RECORD'",
+                            "Type": "A",
+                            "TTL": 1,
+                            "ResourceRecords": [
+                            {
+                                "Value": "'$IP'"
+                            }
+                            ]
+                        }
+                        }
+                    ]
+             }' 
+            echo "Updated Route 53 record for $instance"          
         else
             echo "Instance roboshop-$instance is already running: $INSTANCE_ID"
         fi
