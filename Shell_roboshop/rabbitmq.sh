@@ -33,14 +33,19 @@ VALIDATE() {
 
 }
 
-dnf install mysql-server -y &>>$LOGS_FILE
-VALIDATE $? "Installing Mysql"
+cp rabbitmq.repo /etc/yum.repos.d/rabbitmq.repo
+VALIDATE $? "Cpoying mongo repo"
 
+dnf install rabbitmq-server -y
+VALIDATE $? "Installing Rabbit MQ server"
 
-systemctl enable mysqld &>>$LOGS_FILE
-systemctl start mysqld    &>>$LOGS_FILE
-VALIDATE $? "Enabling and starting mySQL"
+systemctl enable rabbitmq-server
+systemctl start rabbitmq-server
 
-mysql_secure_installation --set-root-pass RoboShop@1 &>>$LOGS_FILE
-VALIDATE $? "Setting up root password for mysql"
+VALIDATE $? "Starting and Enabling rabbitmq-server"
 
+rabbitmqctl add_user roboshop roboshop123
+VALIDATE $? "Adding roboshopuer"
+
+rabbitmqctl set_permissions -p / roboshop ".*" ".*" ".*"
+VALIDATE $? "Setting up rabbit mq permissions"
