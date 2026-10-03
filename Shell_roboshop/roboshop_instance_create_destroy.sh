@@ -22,5 +22,3 @@ if [ "$ACTION" != "create" ] && [ "$ACTION" != "delete" ]; then
     echo -e "$Y [INFO] - USAGE : $0 [create/destrroy] [instance1] [instance2] etc.. $N"
     exit 1
 fi
-
-if [ "$ACTION"]
