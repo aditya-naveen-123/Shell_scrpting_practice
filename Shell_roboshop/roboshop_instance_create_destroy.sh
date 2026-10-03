@@ -25,12 +25,11 @@ fi
 
 get_instance_id() {
     INSTANCE_NAME=$1
-    aws ec2 describe-instances --filters "Name=tag:Name,Values='roboshop-$INSTANCE_NAME'" "Name=instance-state-name,Values=running" --query "Reservations[0].Instances[0].InstanceId" --output text
+    aws ec2 describe-instances --filters "Name=tag:Name,Values=roboshop-$INSTANCE_NAME" "Name=instance-state-name,Values=running" --query "Reservations[0].Instances[0].InstanceId" --output text
 }
 for instance in $@
 do
     INSTANCE_ID=$(get_instance_id "roboshop-$instance")
-
     if [ $ACTION == "create" ]; then
         if [ $INSTANCE_ID != "None" ]; then
             echo "Launching instance 'roboshop-$instance'"
