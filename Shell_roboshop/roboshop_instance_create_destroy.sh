@@ -42,8 +42,11 @@ do
             --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value="roboshop-'$instance'"}]' \
             --query 'Instances[0].InstanceId' \
             --output text)
-            echo "Launched new instance $INSTANCEID" 
-            if [ $instance == "frontend" ]; then
+            echo "Launched new instance $INSTANCEID"          
+        else
+            echo "Instance roboshop-$instance is already running: $INSTANCEID"
+        fi
+        if [ $instance == "frontend" ]; then
                     IP=$(aws ec2 describe-instances --instance-ids $INSTANCEID \
                         --query 'Reservations[*].Instances[*].PublicIpAddress' \
                         --output text 
@@ -78,9 +81,14 @@ do
                         }
                     ]
              }' 
-            echo "Updated Route 53 record for $instance"          
+            echo "Updated Route 53 record for $instance" 
+
+    else
+        if [ $ACTION == "None" ]; then
+            echo "$instance is already destoryed nothing to do"
         else
-            echo "Instance roboshop-$instance is already running: $INSTANCEID"
+            aws ec2 terminate-instances --instance-ids $INSTANCE_NAME
+            echo "Terminating.....; $instance"
         fi
     fi
 done
