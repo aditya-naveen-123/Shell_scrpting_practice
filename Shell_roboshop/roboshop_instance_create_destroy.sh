@@ -84,7 +84,7 @@ do
             echo "Updated Route 53 record for $instance" 
 
     else
-        if [ $ACTION == "None" ]; then
+        if [ $INSTANCEID == "None" ]; then
             echo "$instance is already destoryed nothing to do"
         else
             aws ec2 terminate-instances --instance-ids $INSTANCEID
