@@ -22,3 +22,30 @@ if [ "$ACTION" != "create" ] && [ "$ACTION" != "delete" ]; then
     echo -e "$Y [INFO] - USAGE : $0 [create/destrroy] [instance1] [instance2] etc.. $N"
     exit 1
 fi
+
+get_instance_id() {
+    INSTANCE_NAME=$1
+    aws ec2 describe-instances --filters "Name=tag:Name,Values='roboshop-$INSTANCE_NAME'" "Name=instance-state-name,Values=running" --query "Reservations[0].Instances[0].InstanceId" --output text
+}
+for instance in $@
+do
+    INSTANCE_ID=$(get_instance_id "roboshop-$instance")
+
+    if [ $ACTION == "create" ]; then
+        if [ $INSTANCE_ID != "None" ]; then
+            echo "Launching instance 'roboshop-$instance'"
+            INSTANCE_ID=$(
+            aws ec2 run-instances \
+            --image-id ami-0220d79f3f480ecf5 \
+            --count 1 \
+            --instance-type t3.micro \
+            --security-groups "roboshop-common" "roboshop-$instance" \
+            --tag-specifications 'ResourceType=instance,Tags=[{Key=Name,Value="roboshop-'$instance'"}]' \
+            --query 'Instances[0].InstanceId' \
+            --output text)
+            echo "Launched new instance $INSTANCE_ID" 
+        else
+            echo "Instance roboshop-$instance is already running: $INSTANCE_ID"
+        fi
+    fi
+done
