@@ -15,9 +15,9 @@ VALIDATE $? "Installing mysql to load data"
 
 mysql -h $SQL_DOMAIN -u root -pRoboShop@1 -e "use cities" &>>$LOGS_FILE
 if [ $? -ne 0 ]; then
-    mysql -h $SQL_DOMAIN -uroot -pRoboShop@1 < /app/db/schema.sql
-    mysql -h $SQL_DOMAIN -uroot -pRoboShop@1 < /app/db/app-user.sql 
-    mysql -h $SQL_DOMAIN -uroot -pRoboShop@1 < /app/db/master-data.sql
+    mysql -h $SQL_DOMAIN -uroot -pRoboShop@1 < /app/db/schema.sql &>>LOGS_FILE
+    mysql -h $SQL_DOMAIN -uroot -pRoboShop@1 < /app/db/app-user.sql &>>LOGS_FILE
+    mysql -h $SQL_DOMAIN -uroot -pRoboShop@1 < /app/db/master-data.sql &>>LOGS_FILE
     VALIDATE $? "Data loaded into SQL"
 else
     echo -e "$Y [INFO] Data already loaded into mysql $N"
