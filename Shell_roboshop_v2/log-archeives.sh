@@ -31,7 +31,7 @@ do
     echo "$FILE"
 done <<< "$FILES"
 
-TIMESTAMP=$(date "+%Y-%m-%d %H:%M:%S")
+TIMESTAMP=$(date "+%Y-%m-%d-%H:%M:%S")
 ARCHIEVE_FIE="$DEST_DIR/logs-archieve-$TIMESTAMP.tar.gz"
 
 tar -czvf $ARCHIEVE_FIE $FILES
