@@ -97,3 +97,14 @@ app_restart() {
     systemctl start $app_name &>>$LOGS_FILE
     VALIDATE $? "Enabling and starting $app_name service"
 }
+
+java_setup() {
+    dnf install maven -y &>>$LOGS_FILE
+    VALIDATE $? "Installing maven"
+    mvn clean package &>>$LOGS_FILE
+    VALIDATE $? "Cleaning maven package"
+
+    mv target/shipping-1.0.jar shipping.jar &>> $LOGS_FILE
+    VALIDATE $? "Moving shipping jar file"
+
+}
