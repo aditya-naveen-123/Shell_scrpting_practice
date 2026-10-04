@@ -26,14 +26,23 @@ if [ -z "$FILES" ]; then
     exit 0
 fi
 
-while IFS= read -r FILE
-do
-    echo "$FILE"
-done <<< "$FILES"
 
 TIMESTAMP=$(date "+%Y-%m-%d-%H-%M-%S")
 ARCHIEVE_FIE="$DEST_DIR/logs-archieve-$TIMESTAMP.tar.gz"
 
 tar -czvf $ARCHIEVE_FIE $FILES
 
+if [ $? -eq 0 ]; then
+    echo "Archieval for log files done... Removing the files"
+    while IFS= read -r FILE
+    do
+        echo "$FILE"
+        #
+        rm -f $FILE
+        echo "Deleted File : $FILE"
+    done <<< "$FILES"
 
+else
+    echo "Error in archeving files"
+    exit 1
+fi
