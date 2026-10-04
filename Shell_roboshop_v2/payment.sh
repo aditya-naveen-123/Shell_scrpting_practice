@@ -1,6 +1,6 @@
 #!/bin/bash
 
-app_name=user
+app_name=payment
 SCRIPT_DIR=$PWD
 source ./common.sh
 check_root
