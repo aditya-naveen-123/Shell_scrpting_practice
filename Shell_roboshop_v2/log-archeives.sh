@@ -25,7 +25,7 @@ if [ -z "$FILES" ]; then
     exit 0
 fi
 
-while IFS=read -r FILE
+while IFS= read -r FILE
 do
     echo "$FILE"
 done <<< "$FILES"
