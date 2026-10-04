@@ -1,5 +1,6 @@
 #!/bin/bash
 app_name=catalogue
+SCRIPT_DIR=$PWD
 source ./common.sh
 check_root
 app_setup
